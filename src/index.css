@@ -8,13 +8,45 @@
 }
 
 :root {
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.20 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.20 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.20 0 0);
+
+  --primary: oklch(0.35 0.12 265);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.55 0.15 155);
+  --secondary-foreground: oklch(0.99 0 0);
+  --accent: oklch(0.60 0.18 240);
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.50 0.20 25);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --muted: oklch(0.96 0.01 250);
+  --muted-foreground: oklch(0.45 0 0);
+  --border: oklch(0.90 0.01 250);
+  --input: oklch(0.90 0.01 250);
+  --ring: oklch(0.60 0.18 240);
+
+  --radius: 0.5rem;
+  
+  --slate-gray: oklch(0.45 0.02 250);
+  --slate-gray-foreground: oklch(0.99 0 0);
+  --emerald: oklch(0.55 0.15 155);
+  --emerald-foreground: oklch(0.99 0 0);
+  --ruby: oklch(0.50 0.20 25);
+  --ruby-foreground: oklch(0.99 0 0);
+}
+
+:root[data-theme="retro"] {
   --background: oklch(0.98 0 0);
   --foreground: oklch(0.20 0 0);
 
   --card: oklch(0.99 0 0);
   --card-foreground: oklch(0.20 0 0);
-  --popover: oklch(0.99 0 0);
-  --popover-foreground: oklch(0.20 0 0);
 
   --primary: oklch(0.55 0.22 25);
   --primary-foreground: oklch(0.98 0 0);
@@ -31,7 +63,10 @@
   --input: oklch(0.88 0.02 250);
   --ring: oklch(0.75 0.15 85);
 
-  --radius: 0.5rem;
+  --warp-blue: oklch(0.50 0.15 250);
+  --warp-blue-foreground: oklch(0.98 0 0);
+  --coin-gold: oklch(0.75 0.15 85);
+  --coin-gold-foreground: oklch(0.20 0 0);
 }
 
 @theme {
@@ -55,10 +90,17 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-warp-blue: oklch(0.50 0.15 250);
-  --color-warp-blue-foreground: oklch(0.98 0 0);
-  --color-coin-gold: oklch(0.75 0.15 85);
-  --color-coin-gold-foreground: oklch(0.20 0 0);
+  --color-slate-gray: var(--slate-gray);
+  --color-slate-gray-foreground: var(--slate-gray-foreground);
+  --color-emerald: var(--emerald);
+  --color-emerald-foreground: var(--emerald-foreground);
+  --color-ruby: var(--ruby);
+  --color-ruby-foreground: var(--ruby-foreground);
+
+  --color-warp-blue: var(--warp-blue);
+  --color-warp-blue-foreground: var(--warp-blue-foreground);
+  --color-coin-gold: var(--coin-gold);
+  --color-coin-gold-foreground: var(--coin-gold-foreground);
 
   --radius-sm: calc(var(--radius) * 0.5);
   --radius-md: var(--radius);
@@ -68,22 +110,63 @@
   --radius-full: 9999px;
 
   --font-game: 'Press Start 2P', cursive;
-  --font-body: 'Space Grotesk', sans-serif;
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {
   font-family: var(--font-body);
   background: linear-gradient(135deg, 
+    oklch(0.99 0 0) 0%, 
+    oklch(0.97 0.01 240) 50%, 
+    oklch(0.99 0 0) 100%);
+  background-attachment: fixed;
+}
+
+body[data-theme="retro"] {
+  background: linear-gradient(135deg, 
     oklch(0.98 0 0) 0%, 
     oklch(0.96 0.02 240) 50%, 
     oklch(0.98 0 0) 100%);
-  background-attachment: fixed;
 }
 
 .font-game {
   font-family: var(--font-game);
 }
 
+.font-display {
+  font-family: var(--font-display);
+}
+
 .font-body {
   font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
 }

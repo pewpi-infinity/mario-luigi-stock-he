@@ -3,11 +3,19 @@ export interface Stock {
   symbol: string
   name: string
   currentPrice: number
+  basePrice: number
   priceChange: number
   priceChangePercent: number
   totalSupply: number
   availableTokens: number
   category: string
+  lastPriceUpdate: number
+  priceHistory: PricePoint[]
+}
+
+export interface PricePoint {
+  timestamp: number
+  price: number
 }
 
 export interface PortfolioHolding {
@@ -21,6 +29,8 @@ export interface PortfolioHolding {
   totalValue: number
   gainLoss: number
   gainLossPercent: number
+  infinityBankId: string
+  securityLevel: 'plateau' | 'plus'
 }
 
 export interface AIRecommendation {
@@ -36,13 +46,15 @@ export interface AIRecommendation {
 
 export interface Transaction {
   id: string
-  type: 'buy' | 'sell'
+  type: 'buy' | 'sell' | 'import' | 'convert'
   stockId: string
   symbol: string
   quantity: number
   price: number
   total: number
+  infinityTokens?: number
   timestamp: number
+  infinityBankId: string
 }
 
 export interface Portfolio {
@@ -50,4 +62,23 @@ export interface Portfolio {
   totalGainLoss: number
   totalGainLossPercent: number
   holdings: PortfolioHolding[]
+  infinityTokenBalance: number
+  cashBalance: number
+}
+
+export interface InfinityBankRecord {
+  id: string
+  userId: string
+  type: 'holding' | 'transaction' | 'balance'
+  data: any
+  timestamp: number
+  securityHash: string
+  plateauBackup: boolean
+  plusRedundancy: boolean
+}
+
+export interface PriceAlgorithmConfig {
+  currentHourRate: number
+  nextUpdateTime: number
+  hourlySchedule: number[]
 }

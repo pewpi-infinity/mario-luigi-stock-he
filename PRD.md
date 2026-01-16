@@ -1,146 +1,171 @@
 # Planning Guide
 
-A tokenized stock trading platform where AI-powered Mario and Luigi characters provide contrarian investment advice - Mario identifies stocks to sell, Luigi recommends stocks to hold - creating an animated, game-inspired trading experience with controlled token supply.
+A professional tokenized stock trading platform competing with Robinhood, featuring Infinity Token ecosystem conversion, Plaid integration, dynamic price appreciation algorithms, and secure Infinity Bank storage. Users import portfolios from major platforms, convert holdings to Infinity Tokens, and benefit from algorithmically-increasing stock values with AI-powered trading guidance from Mario and Luigi advisors.
 
 **Experience Qualities**:
-1. **Playful** - The Mario/Luigi theme transforms serious investing into an entertaining, approachable experience that reduces anxiety around trading decisions.
-2. **Contrarian** - The AI challenges conventional wisdom by actively suggesting sells (Mario stops) and holds (Luigi waits), creating thoughtful pause before action.
-3. **Controlled** - Tokenized stocks with limited supply per asset creates a curated, regulated market that feels safer than traditional volatile trading.
+1. **Professional** - Clean, modern fintech aesthetic with optional retro gaming theme toggle. Enterprise-grade interface that instills trust and credibility for serious investors.
+2. **Innovative** - Revolutionary Infinity Token conversion system transforms traditional stocks into appreciating digital assets with guaranteed algorithmic growth (1-30 cents per 3 seconds).
+3. **Secure** - Infinity Bank storage with Infinity Plateau and Plus program protection, ensuring holdings are safeguarded with advanced memory storage architecture.
 
 **Complexity Level**: Complex Application (advanced functionality, likely with multiple views)
-This requires portfolio imports, AI analysis, real-time tokenized trading, animated character interactions, buy/sell transactions, and portfolio management - all working together as a sophisticated trading platform.
+This requires Plaid integration for portfolio imports, Infinity Token conversion engine, real-time dynamic pricing algorithms, secure Infinity Bank storage, AI analysis, professional charting, and complete trading platform functionality comparable to Robinhood.
 
 ## Essential Features
 
-**Portfolio Import**
-- Functionality: Import existing stock portfolios from platforms like Robinhood, Public, and Webull via CSV/JSON file upload
-- Purpose: Seamless onboarding without manual data entry, instant AI analysis of current holdings
-- Trigger: "Import Portfolio" button on dashboard header
-- Progression: Click Import → Select platform → Download sample (optional) → Upload portfolio file → Review parsed holdings → Confirm import → Holdings added to Power Trading platform
-- Success criteria: Portfolio data displays correctly with current positions, quantities, and values; imported stocks automatically added to available market
+**Plaid Portfolio Import & Conversion**
+- Functionality: Integrate Plaid API to import portfolios from Robinhood, Public, Webull, and major brokerages; automatic conversion to Infinity Tokens at import
+- Purpose: Seamless onboarding with OAuth connections to real trading accounts; cash and stocks converted to Infinity Token ecosystem while platform owner liquidates actual assets for gold/silver/land
+- Trigger: "Connect Account" button with Plaid integration or manual CSV/JSON import fallback
+- Progression: Click Connect → Plaid OAuth flow → Select brokerage → Authorize access → Import positions → Review conversion rate → Confirm → Cash and stocks converted to Infinity Tokens → Holdings stored in Infinity Bank
+- Success criteria: Successful OAuth connection, accurate position import, transparent Infinity Token conversion display, secure storage in Infinity Bank
+
+**Dynamic Price Appreciation Algorithm**
+- Functionality: Real-time price increases of 1-30 cents every 3 seconds based on hourly rotation schedule (Hour 1: +3¢/3s, Hour 2: +6¢/3s, Hour 3: +2¢/3s, etc.)
+- Purpose: Guaranteed appreciation model ensures all holdings increase in value, creating positive investor experience and differentiating from volatile traditional markets
+- Trigger: Continuous background process running every 3 seconds for all stocks
+- Progression: Stock starts at market price (e.g., $231.00 at 3:31) → Algorithm adds cents every 3 seconds → Reaches $231.60+ by 3:32 → Hourly rate changes → Charts reflect guaranteed upward trajectory
+- Success criteria: Precise timing (60¢ minimum increase per minute), smooth chart animation, hourly rate rotation, no price decreases
+
+**Infinity Bank Storage & Security**
+- Functionality: Holdings secured in Infinity Bank using Infinity Plateau and Plus program architecture from mongoose.os repository for maximum protection
+- Purpose: Enterprise-grade storage that exceeds traditional brokerage security; all positions backed by memory storage redundancy
+- Trigger: Automatic upon any transaction or portfolio import
+- Progression: Transaction completes → Data encrypted → Stored in Infinity Bank → Plateau protection applied → Plus program redundancy verified → Confirmation
+- Success criteria: 100% data persistence, zero loss events, instant retrieval, audit trail
+
+**Infinity Token Conversion Engine**
+- Functionality: Convert imported cash and stock holdings to Infinity Tokens; display conversion rates and total Infinity Token balance
+- Purpose: Unified ecosystem where all value is denominated in Infinity Tokens, allowing platform to liquidate actual dollars for tangible assets (gold/silver/land)
+- Trigger: Portfolio import or manual cash deposit
+- Progression: Import $10,000 in stocks/cash → System calculates Infinity Token conversion → User sees "10,000 ΞINF tokens" → Platform owner receives actual dollars → User trades within Infinity ecosystem
+- Success criteria: Clear conversion display, accurate token balance, transparent rate information
+
+**Professional Trading Interface**
+- Functionality: Robinhood-comparable UI with advanced charting, order types, portfolio analytics, and real-time data
+- Purpose: Professional-grade platform that competes directly with established brokerages in functionality and polish
+- Trigger: Primary app interface
+- Progression: Dashboard → Portfolio overview → Stock search → Advanced chart with guaranteed appreciation line → Place order → Execution → Confirmation
+- Success criteria: Sub-second UI response, professional aesthetics, comprehensive trading tools
+
+**Retro/Professional Theme Toggle**
+- Functionality: Switch between professional fintech theme and playful retro gaming theme with Mario/Luigi characters
+- Purpose: Appeal to both serious investors and those who enjoyed the original playful experience
+- Trigger: Theme toggle in header settings
+- Progression: Click toggle → Interface transitions → Colors/fonts/animations change → Mario/Luigi appear in retro mode, hidden in professional mode
+- Success criteria: Smooth theme transition, consistent experience in each mode, preferences saved
 
 **Mario AI - Sell Recommendations**
-- Functionality: AI analyzes portfolio and identifies stocks to sell, presented by animated Mario character who "stops" the user
-- Purpose: Contrarian advice to prevent holding declining assets, creates memorable sell signals
-- Trigger: User views portfolio, clicks "Get Mario's Pick", or scheduled daily analysis
-- Progression: User requests analysis → AI evaluates holdings → Mario animation appears → Mario presents sell recommendation with reasoning → User can act or dismiss
-- Success criteria: Relevant sell recommendations with clear AI reasoning, smooth Mario stop animation
+- Functionality: AI analyzes portfolio and identifies underperforming stocks to sell, presented by Mario in retro mode
+- Purpose: AI-powered guidance to optimize portfolio composition
+- Trigger: "Get AI Insights" button (professional mode) or "Mario's Pick" (retro mode)
+- Progression: Request analysis → AI evaluates holdings → Recommendation displayed → User can act or dismiss
+- Success criteria: Relevant recommendations with clear reasoning
 
 **Luigi AI - Hold Recommendations**  
-- Functionality: AI identifies stocks worth holding, presented by animated Luigi character telling buyers to "wait"
-- Purpose: Prevents premature selling of strong positions, provides confidence in long-term holds
-- Trigger: User views portfolio, clicks "Get Luigi's Pick", or when user attempts to sell a recommended hold
-- Progression: User requests analysis → AI evaluates holdings → Luigi animation appears → Luigi presents hold recommendation with reasoning → User can proceed or reconsider
-- Success criteria: Actionable hold advice that prevents emotional trading, engaging Luigi wait animation
-
-**Tokenized Stock Trading**
-- Functionality: Buy and sell tokenized versions of stocks with controlled supply limits per asset
-- Purpose: Creates scarcity-driven market dynamics, reduces volatility, ensures liquidity control
-- Trigger: User clicks Buy/Sell on any tokenized stock
-- Progression: Select stock → View available token supply → Enter quantity → Review transaction → Confirm → Transaction executes → Portfolio updates
-- Success criteria: Instant execution, accurate token supply tracking, portfolio reflects changes immediately
-
-**Token Supply Management**
-- Functionality: Display and enforce maximum token supply per stock, show scarcity metrics
-- Purpose: Transparency in market structure, creates urgency for popular stocks
-- Trigger: Viewing any stock detail page or market overview
-- Progression: User views stock → Sees total supply and available tokens → Understands scarcity → Makes informed decision
-- Success criteria: Clear visualization of token availability, prevents over-minting beyond set limits
+- Functionality: AI identifies strong holdings worth keeping, presented by Luigi in retro mode
+- Purpose: Confidence-building advice to prevent emotional selling
+- Trigger: "Get AI Insights" button or "Luigi's Pick"
+- Progression: Request analysis → AI evaluates holdings → Recommendation displayed → User can proceed or reconsider
+- Success criteria: Actionable hold advice that prevents premature exits
 
 ## Edge Case Handling
 
-- **Import Failures**: Multiple file format support (CSV/JSON), flexible parsing that handles various column headers, sample file downloads to test feature, clear error messages with parsing details
-- **No AI Recommendations**: When portfolio is optimally balanced, show encouraging message from both characters celebrating good holdings
-- **Sold Out Tokens**: Waitlist feature for fully-allocated stocks, notifications when tokens become available
-- **Conflicting AI Advice**: When Mario suggests selling what Luigi previously recommended holding, show debate animation and updated reasoning
-- **Network Delays**: Optimistic UI updates with loading states, transaction queuing for offline resilience
-- **Zero Portfolio**: Onboarding flow to discover and purchase first tokens through guided experience
+- **Plaid Connection Failures**: Fallback to CSV/JSON import, clear error messages, retry logic with exponential backoff
+- **Infinity Token Conversion Disputes**: Transparent conversion history, rate locked at import time, audit trail in Infinity Bank
+- **Algorithm Timing Drift**: Server-side clock synchronization, correction mechanisms if timing falls behind schedule
+- **Rapid Price Increases**: UI handles fast updates without performance degradation, charts optimize rendering for constant growth
+- **Network Interruptions**: Offline queue for price updates, background sync when connection restored, no missed appreciation periods
+- **Theme Toggle Mid-Transaction**: State preserved across theme changes, transactions complete regardless of UI mode
+- **Zero Infinity Balance**: Onboarding flow to deposit cash or import portfolio, demo mode to explore platform
+- **Conflicting AI Recommendations**: Show both perspectives, let user decide, explain reasoning differences
 
 ## Design Direction
 
-The design should evoke nostalgia, playfulness, and trust - blending classic video game aesthetics with modern fintech credibility. Think retro pixel art meets sleek trading interface, where whimsical Mario characters provide surprisingly sophisticated financial insights. The experience should feel like a game you want to play, but one you'd trust with real money.
+**Professional Mode**: Clean, modern fintech aesthetic inspired by Robinhood, Stripe, and Bloomberg Terminal - sophisticated gradients, precise typography, data-dense layouts, and institutional credibility.
+
+**Retro Mode**: Playful gaming theme with Mario/Luigi characters, pixel fonts, vibrant colors, and nostalgic animations - fun but never unprofessional.
+
+Both modes must feel production-ready and trustworthy for real financial transactions.
 
 ## Color Selection
 
-A vibrant, game-inspired palette that balances playful energy with financial professionalism, using the iconic Mario red and Luigi green as functional color signals.
-
-- **Primary Color**: Mario Red `oklch(0.55 0.22 25)` - Represents sell actions, warnings, and Mario's presence; conveys urgency and attention
+**Professional Theme** (Default):
+- **Primary Color**: Deep Indigo `oklch(0.35 0.12 265)` - Primary actions, buy buttons, conveys trust and stability
 - **Secondary Colors**: 
-  - Luigi Green `oklch(0.65 0.18 145)` - Represents hold actions, positive sentiment, and Luigi's presence
-  - Coin Gold `oklch(0.75 0.15 85)` - Accent for token counts, rewards, achievements
-  - Warp Pipe Blue `oklch(0.50 0.15 250)` - Buy actions, navigation, interactive elements
-- **Accent Color**: Power Star Yellow `oklch(0.85 0.18 95)` - CTAs, notifications, AI insights, important highlights
-- **Foreground/Background Pairings**:
-  - Background (Clean White `oklch(0.98 0 0)`): Dark Text `oklch(0.20 0 0)` - Ratio 14.2:1 ✓
-  - Mario Red: White text `oklch(0.98 0 0)` - Ratio 5.1:1 ✓
-  - Luigi Green: White text `oklch(0.98 0 0)` - Ratio 4.8:1 ✓
-  - Warp Pipe Blue: White text `oklch(0.98 0 0)` - Ratio 6.2:1 ✓
-  - Power Star Yellow: Dark text `oklch(0.20 0 0)` - Ratio 12.8:1 ✓
+  - Emerald Green `oklch(0.55 0.15 155)` - Positive gains, success states
+  - Slate Gray `oklch(0.45 0.02 250)` - Secondary actions, neutral elements
+  - Ruby Red `oklch(0.50 0.20 25)` - Sell actions, losses, alerts
+- **Accent Color**: Electric Blue `oklch(0.60 0.18 240)` - CTAs, highlights, interactive elements
+- **Background**: Clean White `oklch(0.99 0 0)` with subtle gray gradient overlays
+
+**Retro Theme**:
+- Mario Red `oklch(0.55 0.22 25)`, Luigi Green `oklch(0.65 0.18 145)`, Coin Gold `oklch(0.75 0.15 85)`, Warp Blue `oklch(0.50 0.15 250)`, Power Star Yellow `oklch(0.85 0.18 95)`
+
+**Foreground/Background Pairings**:
+- Professional Background `oklch(0.99 0 0)`: Dark Text `oklch(0.20 0 0)` - Ratio 15.1:1 ✓
+- Deep Indigo: White text `oklch(0.99 0 0)` - Ratio 8.2:1 ✓
+- Emerald Green: White text `oklch(0.99 0 0)` - Ratio 5.5:1 ✓
+- Ruby Red: White text `oklch(0.99 0 0)` - Ratio 6.1:1 ✓
 
 ## Font Selection
 
-Typography should balance retro gaming charm with modern financial clarity - fun but never childish, approachable but trustworthy.
+**Professional Theme**:
+- Primary: Inter Variable (all weights) - Modern, readable, professional standard
+- Mono: JetBrains Mono - Tabular figures, data display
+- Display: Sora - Headlines and emphasis
 
-- **Primary Typeface**: Press Start 2P for headers, character names, and key stats (evokes classic Mario games)
-- **Secondary Typeface**: Space Grotesk for body text, data, and UI (modern, technical, readable at small sizes)
+**Retro Theme**:
+- Primary: Press Start 2P - Headers, character names
+- Body: Space Grotesk - Body text, data
 
-**Typographic Hierarchy**:
-- H1 (Page Titles): Press Start 2P Bold/32px/tight letter spacing
-- H2 (Section Headers): Press Start 2P Regular/20px/normal letter spacing  
-- H3 (Character Names): Press Start 2P Regular/16px/normal letter spacing
-- Body (Trading Info): Space Grotesk Regular/16px/1.6 line height
-- Data (Stock Prices): Space Grotesk Bold/18px/tabular numbers
-- Small (Metadata): Space Grotesk Regular/14px/relaxed tracking
+**Typographic Hierarchy** (Professional):
+- H1 (Dashboard Title): Sora Bold/36px/tight tracking
+- H2 (Section Headers): Sora SemiBold/24px/normal tracking
+- Body (Trading Info): Inter Regular/15px/1.5 line height
+- Data (Prices): JetBrains Mono Medium/16px/tabular-nums
+- Small (Labels): Inter Medium/13px/0.01em tracking
 
 ## Animations
 
-Animations should feel like power-ups in a Mario game - quick, satisfying, and purposeful. Mario should "jump in" to stop selling, Luigi should "slide in" to recommend holding. Token transactions should have coin-collection sound-like visual feedback. Subtle parallax on portfolio cards creates depth. All animations should complete within 300ms to maintain snappy game-like responsiveness, with character entrances being the delightful exception at 500ms.
+**Professional Mode**: Subtle, fast, purposeful - micro-interactions under 200ms, smooth data transitions, minimal flourish
+
+**Retro Mode**: Playful, bouncy, game-like - Mario jump animations, coin collection effects, power-up transitions up to 500ms
+
+All animations respect `prefers-reduced-motion`.
 
 ## Component Selection
 
 **Components**:
-- **Dialog**: Character recommendations modal with animated Mario/Luigi sprites
-- **Card**: Portfolio holdings, individual stock cards with glass-morphism effect
-- **Button**: Primary actions styled as game buttons with pixel-perfect borders, hover state mimics button press
-- **Tabs**: Switch between Portfolio / Market / AI Insights views
-- **Progress**: Token supply visualization (shows X/1000 tokens available)
-- **Sheet**: Slide-out buy/sell transaction panel from right side
-- **Avatar**: User profile, imported platform badges
-- **Badge**: Token counts, stock categories (Tech, Finance, etc.)
-- **Skeleton**: Loading states for portfolio import and AI analysis
-- **Sonner Toast**: Transaction confirmations styled as Mario game notifications ("1-UP!" style)
+- **Dialog**: AI insights modal (professional) or character recommendations (retro)
+- **Card**: Portfolio holdings, stock listings with hover states
+- **Button**: Gradient-backed in professional, pixel-style in retro
+- **Tabs**: Switch between Portfolio / Market / Analytics
+- **Sheet**: Trading panel slide-out
+- **Progress**: Token supply and loading states
+- **Badge**: Asset categories, status indicators
+- **Switch**: Theme toggle (Professional ⇄ Retro)
+- **Sonner Toast**: Transaction confirmations
 
 **Customizations**:
-- Custom animated SVG components for Mario and Luigi with multiple states (idle, talking, excited, warning)
-- Coin flip animation component for token transactions
-- Portfolio import connector component with OAuth flows
-- AI reasoning card component with character-specific styling
+- Professional stock chart component with guaranteed appreciation visualization
+- Infinity Token balance display with real-time updates
+- Plaid connection component with OAuth flow
+- Theme switcher with smooth transitions
+- Price ticker with 3-second update intervals
 
 **States**:
-- Buttons: Default has subtle drop shadow, hover lifts with Mario jump arc, active presses down 2px, disabled is grayscale
-- Inputs: Focus state glows with gold outline like collecting coins
-- Cards: Hover scales 1.02 with gentle lift shadow, selected has gold border pulse
+- Buttons: Hover has subtle lift shadow (professional) or pixel press (retro), active state provides tactile feedback
+- Inputs: Focus shows ring in theme accent color
+- Cards: Hover scales 1.01 with shadow depth increase
 
-**Icon Selection**:
-- ArrowUp/ArrowDown (Phosphor) for price movements
-- Coins (Phosphor) for token counts
-- TrendUp/TrendDown for performance metrics
-- Lightning for AI insights
-- Upload for portfolio import
-- ShoppingCart for buy actions
-- Wallet for holdings
+**Icon Selection** (Phosphor Icons):
+- TrendUp for gains, Chart for analytics, Wallet for balances, Shield for security, Lightning for AI, Bank for Infinity Bank, ArrowsClockwise for sync, Plus/Minus for trading
 
 **Spacing**:
-- Card padding: p-6 (24px)
-- Section gaps: gap-8 (32px)
-- Button spacing: px-8 py-3
-- Grid layouts: grid gap-6
-- Character modals: p-12 for breathing room
+- Consistent 8px grid system
+- Cards: p-6
+- Sections: gap-8
+- Tight data layouts: gap-4
 
 **Mobile**:
-- Single column portfolio grid on mobile
-- Bottom sheet for buy/sell instead of side panel
-- Floating action button for AI insights
-- Collapsible stats section to prioritize holdings
-- Hamburger menu for navigation
-- Character animations scale down but remain prominent
+- Single column layouts, bottom sheets for trading, floating action button for quick trade, collapsible sections, responsive charts

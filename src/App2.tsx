@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Toaster } from '@/components/ui/sonner'
-import { Upload, TrendUp, Bank, Lightning, Coins, Shield } from '@phosphor-icons/react'
+import { Upload, TrendUp, Bank, Lightning, Coins, Shield, ArrowsClockwise } from '@phosphor-icons/react'
 import { StockCard } from '@/components/StockCard'
 import { PortfolioCard } from '@/components/PortfolioCard'
 import { TradePanel } from '@/components/TradePanel'
@@ -126,10 +126,8 @@ function App() {
   const isRetroTheme = theme === 'retro'
 
   useEffect(() => {
-    if (theme) {
-      document.documentElement.setAttribute('data-theme', theme)
-      document.body.setAttribute('data-theme', theme)
-    }
+    document.documentElement.setAttribute('data-theme', theme)
+    document.body.setAttribute('data-theme', theme)
   }, [theme])
 
   useEffect(() => {
@@ -509,7 +507,7 @@ Respond with just the advice text, no intro.`
                 <div className="text-sm font-medium text-muted-foreground">Infinity Tokens</div>
               </div>
               <div className={`text-3xl font-bold tabular-nums text-accent ${isRetroTheme ? 'font-body' : 'font-mono'}`}>
-                {(infinityTokenBalance || 0).toLocaleString()} ΞINF
+                {infinityTokenBalance.toLocaleString()} ΞINF
               </div>
             </div>
           </div>
@@ -576,7 +574,7 @@ Respond with just the advice text, no intro.`
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentStocks.map((stock) => (
-                  <StockCard key={stock.id} stock={stock} onClick={() => handleStockClick(stock)} />
+                  <StockCard key={stock.id} stock={stock} onClick={() => handleStockClick(stock)} theme={theme} />
                 ))}
               </div>
             </div>
@@ -609,7 +607,7 @@ Respond with just the advice text, no intro.`
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {currentHoldings.map((holding) => (
-                    <PortfolioCard key={holding.id} holding={holding} onClick={() => handlePortfolioClick(holding)} />
+                    <PortfolioCard key={holding.id} holding={holding} onClick={() => handlePortfolioClick(holding)} theme={theme} />
                   ))}
                 </div>
               )}
@@ -624,6 +622,7 @@ Respond with just the advice text, no intro.`
         stock={selectedStock}
         holding={selectedHolding}
         onTrade={handleTrade}
+        theme={theme}
       />
 
       {isRetroTheme && (
