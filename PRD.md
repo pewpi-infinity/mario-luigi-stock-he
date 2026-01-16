@@ -13,11 +13,11 @@ This requires portfolio imports, AI analysis, real-time tokenized trading, anima
 ## Essential Features
 
 **Portfolio Import**
-- Functionality: Connect and import existing stock portfolios from platforms like Robinhood and Public
+- Functionality: Import existing stock portfolios from platforms like Robinhood, Public, and Webull via CSV/JSON file upload
 - Purpose: Seamless onboarding without manual data entry, instant AI analysis of current holdings
-- Trigger: "Import Portfolio" button on dashboard or onboarding flow
-- Progression: Select platform → Authenticate → Import holdings → View imported portfolio → AI analysis begins
-- Success criteria: Portfolio data displays correctly with current positions, quantities, and values
+- Trigger: "Import Portfolio" button on dashboard header
+- Progression: Click Import → Select platform → Download sample (optional) → Upload portfolio file → Review parsed holdings → Confirm import → Holdings added to Power Trading platform
+- Success criteria: Portfolio data displays correctly with current positions, quantities, and values; imported stocks automatically added to available market
 
 **Mario AI - Sell Recommendations**
 - Functionality: AI analyzes portfolio and identifies stocks to sell, presented by animated Mario character who "stops" the user
@@ -49,7 +49,7 @@ This requires portfolio imports, AI analysis, real-time tokenized trading, anima
 
 ## Edge Case Handling
 
-- **Import Failures**: Fallback to manual portfolio entry with CSV upload option, clear error messages explaining authentication issues
+- **Import Failures**: Multiple file format support (CSV/JSON), flexible parsing that handles various column headers, sample file downloads to test feature, clear error messages with parsing details
 - **No AI Recommendations**: When portfolio is optimally balanced, show encouraging message from both characters celebrating good holdings
 - **Sold Out Tokens**: Waitlist feature for fully-allocated stocks, notifications when tokens become available
 - **Conflicting AI Advice**: When Mario suggests selling what Luigi previously recommended holding, show debate animation and updated reasoning

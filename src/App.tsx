@@ -9,6 +9,7 @@ import { PortfolioCard } from '@/components/PortfolioCard'
 import { TradePanel } from '@/components/TradePanel'
 import { MarioCharacter } from '@/components/MarioCharacter'
 import { LuigiCharacter } from '@/components/LuigiCharacter'
+import { PortfolioImportDialog } from '@/components/PortfolioImportDialog'
 import type { Stock, PortfolioHolding, Portfolio, Transaction } from '@/lib/types'
 import { toast } from 'sonner'
 
@@ -92,6 +93,7 @@ function App() {
   const [luigiVisible, setLuigiVisible] = useState(false)
   const [marioRec, setMarioRec] = useState<any>(null)
   const [luigiRec, setLuigiRec] = useState<any>(null)
+  const [importDialogOpen, setImportDialogOpen] = useState(false)
 
   const currentHoldings = holdings || []
   const currentStocks = stocks || []
@@ -303,6 +305,63 @@ Respond with just the advice text, no intro.`
     ? currentHoldings.find((h) => h.stockId === selectedStock.id) || null
     : null
 
+  const handleImportPortfolio = (importedHoldings: Array<{
+    symbol: string
+    name: string
+    quantity: number
+    averagePrice: number
+    currentPrice: number
+  }>) => {
+    const newHoldings: PortfolioHolding[] = []
+    const updatedStocks = [...currentStocks]
+
+    for (const imported of importedHoldings) {
+      let stock = updatedStocks.find(s => s.symbol === imported.symbol)
+      
+      if (!stock) {
+        const newStock: Stock = {
+          id: Date.now().toString() + Math.random(),
+          symbol: imported.symbol,
+          name: imported.name,
+          currentPrice: imported.currentPrice,
+          priceChange: 0,
+          priceChangePercent: 0,
+          totalSupply: 1000,
+          availableTokens: 1000 - imported.quantity,
+          category: 'Imported',
+        }
+        updatedStocks.push(newStock)
+        stock = newStock
+      } else {
+        const index = updatedStocks.findIndex(s => s.id === stock!.id)
+        updatedStocks[index] = {
+          ...stock,
+          availableTokens: Math.max(0, stock.availableTokens - imported.quantity),
+        }
+      }
+
+      const totalValue = imported.quantity * imported.currentPrice
+      const gainLoss = totalValue - (imported.averagePrice * imported.quantity)
+      const gainLossPercent = (gainLoss / (imported.averagePrice * imported.quantity)) * 100
+
+      newHoldings.push({
+        id: Date.now().toString() + Math.random(),
+        stockId: stock.id,
+        symbol: imported.symbol,
+        name: imported.name,
+        quantity: imported.quantity,
+        averagePrice: imported.averagePrice,
+        currentPrice: imported.currentPrice,
+        totalValue,
+        gainLoss,
+        gainLossPercent,
+      })
+    }
+
+    setStocks(updatedStocks)
+    setHoldings((current) => [...(current || []), ...newHoldings])
+  }
+
   return (
     <div className="min-h-screen pb-20">
       <header className="border-b-4 border-border bg-card/50 backdrop-blur sticky top-0 z-40">
@@ -312,7 +371,7 @@ Respond with just the advice text, no intro.`
               <h1 className="font-game text-2xl mb-2">POWER TRADING</h1>
               <p className="text-sm text-muted-foreground">Mario & Luigi Stock Platform</p>
             </div>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2" onClick={() => setImportDialogOpen(true)}>
               <Upload size={20} weight="bold" />
               <span className="hidden sm:inline">Import Portfolio</span>
             </Button>
@@ -375,10 +434,18 @@ Respond with just the advice text, no intro.`
                 <div className="text-center py-20">
                   <div className="text-6xl mb-4">🎮</div>
                   <div className="font-game text-lg mb-2">NO HOLDINGS YET</div>
-                  <div className="text-muted-foreground mb-6">Start by buying some tokens from the market!</div>
-                  <Button onClick={() => document.querySelector<HTMLButtonElement>('[value="market"]')?.click()}>
-                    Browse Market
-                  </Button>
+                  <div className="text-muted-foreground mb-6">
+                    Start by importing your portfolio or buying tokens from the market!
+                  </div>
+                  <div className="flex gap-3 justify-center">
+                    <Button onClick={() => setImportDialogOpen(true)} variant="outline" className="gap-2">
+                      <Upload size={20} weight="bold" />
+                      Import Portfolio
+                    </Button>
+                    <Button onClick={() => document.querySelector<HTMLButtonElement>('[value="market"]')?.click()}>
+                      Browse Market
+                    </Button>
+                  </div>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -410,6 +477,12 @@ Respond with just the advice text, no intro.`
         isVisible={luigiVisible}
         recommendation={luigiRec}
         onClose={() => setLuigiVisible(false)}
+      />
+
+      <PortfolioImportDialog
+        isOpen={importDialogOpen}
+        onClose={() => setImportDialogOpen(false)}
+        onImport={handleImportPortfolio}
       />
 
       <Toaster position="top-center" />
