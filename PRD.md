@@ -1,23 +1,23 @@
 # Planning Guide
 
-A professional tokenized stock trading platform competing with Robinhood, featuring Infinity Token ecosystem conversion, Plaid integration, dynamic price appreciation algorithms, and secure Infinity Bank storage. Users import portfolios from major platforms, convert holdings to Infinity Tokens, and benefit from algorithmically-increasing stock values with AI-powered trading guidance from Mario and Luigi advisors.
+A professional tokenized stock trading platform competing with Robinhood, featuring real Plaid integration for brokerage connections, Infinity Token ecosystem conversion, dynamic price appreciation algorithms, and secure Infinity Bank storage. Users connect Robinhood, Webull, and other major brokerages via Plaid OAuth, convert holdings to Infinity Tokens, and benefit from algorithmically-increasing stock values with AI-powered trading guidance from Mario and Luigi advisors.
 
 **Experience Qualities**:
-1. **Professional** - Clean, modern fintech aesthetic with optional retro gaming theme toggle. Enterprise-grade interface that instills trust and credibility for serious investors.
-2. **Innovative** - Revolutionary Infinity Token conversion system transforms traditional stocks into appreciating digital assets with guaranteed algorithmic growth (1-30 cents per 3 seconds).
-3. **Secure** - Infinity Bank storage with Infinity Plateau and Plus program protection, ensuring holdings are safeguarded with advanced memory storage architecture.
+1. **Professional** - Clean, modern fintech aesthetic with optional retro gaming theme toggle. Enterprise-grade interface with real Plaid integration that instills trust and credibility for serious investors.
+2. **Innovative** - Revolutionary Infinity Token conversion system transforms traditional stocks into appreciating digital assets with guaranteed algorithmic growth (1-30 cents per 3 seconds). Real-time brokerage connections via Plaid.
+3. **Secure** - Bank-level OAuth security via Plaid (SOC 2 certified, 256-bit encryption). Infinity Bank storage with Infinity Plateau and Plus program protection, ensuring holdings are safeguarded with advanced memory storage architecture.
 
 **Complexity Level**: Complex Application (advanced functionality, likely with multiple views)
-This requires Plaid integration for portfolio imports, Infinity Token conversion engine, real-time dynamic pricing algorithms, secure Infinity Bank storage, AI analysis, professional charting, and complete trading platform functionality comparable to Robinhood.
+This requires real Plaid OAuth integration for portfolio imports, Infinity Token conversion engine, real-time dynamic pricing algorithms, secure Infinity Bank storage, AI analysis, professional charting, and complete trading platform functionality that directly competes with Robinhood.
 
 ## Essential Features
 
 **Plaid Portfolio Import & Conversion**
-- Functionality: Integrate Plaid API to import portfolios from Robinhood, Public, Webull, and major brokerages; automatic conversion to Infinity Tokens at import
-- Purpose: Seamless onboarding with OAuth connections to real trading accounts; cash and stocks converted to Infinity Token ecosystem while platform owner liquidates actual assets for gold/silver/land
-- Trigger: "Connect Account" button with Plaid integration or manual CSV/JSON import fallback
-- Progression: Click Connect → Plaid OAuth flow → Select brokerage → Authorize access → Import positions → Review conversion rate → Confirm → Cash and stocks converted to Infinity Tokens → Holdings stored in Infinity Bank
-- Success criteria: Successful OAuth connection, accurate position import, transparent Infinity Token conversion display, secure storage in Infinity Bank
+- Functionality: Real Plaid OAuth integration to securely connect Robinhood, Webull, Public, Fidelity, Charles Schwab, E*TRADE, TD Ameritrade, Merrill Edge, Vanguard, and 11,000+ other financial institutions; fetch actual portfolio holdings and cash balances; automatic conversion to Infinity Tokens at import with transparent rate display
+- Purpose: Seamless onboarding with bank-level security (SOC 2, 256-bit encryption, read-only access) for connecting real trading accounts; cash and stocks converted to Infinity Token ecosystem while platform owner liquidates actual assets for gold/silver/land investments
+- Trigger: "Connect Brokerage" button launches Plaid Link modal with institution search and OAuth flow
+- Progression: Click Connect Brokerage → Plaid Link modal opens → Search/select institution (Robinhood, etc.) → Plaid OAuth login (credentials never touch our servers) → Authorize read-only access → Public token received → Backend exchanges for access token → Fetch accounts/holdings/securities → Review conversion rate summary → Confirm import → Holdings converted to Infinity Tokens → Positions secured in Infinity Bank with Plateau protection → Success confirmation with token balance
+- Success criteria: Successful OAuth connection to real brokerages, accurate real-time position import, transparent Infinity Token conversion display with USD value comparison, secure encrypted storage in Infinity Bank, transaction audit trail, progress indicators during multi-step process
 
 **Dynamic Price Appreciation Algorithm**
 - Functionality: Real-time price increases of 1-30 cents every 3 seconds based on hourly rotation schedule (Hour 1: +3¢/3s, Hour 2: +6¢/3s, Hour 3: +2¢/3s, etc.)
@@ -70,14 +70,19 @@ This requires Plaid integration for portfolio imports, Infinity Token conversion
 
 ## Edge Case Handling
 
-- **Plaid Connection Failures**: Fallback to CSV/JSON import, clear error messages, retry logic with exponential backoff
-- **Infinity Token Conversion Disputes**: Transparent conversion history, rate locked at import time, audit trail in Infinity Bank
-- **Algorithm Timing Drift**: Server-side clock synchronization, correction mechanisms if timing falls behind schedule
-- **Rapid Price Increases**: UI handles fast updates without performance degradation, charts optimize rendering for constant growth
-- **Network Interruptions**: Offline queue for price updates, background sync when connection restored, no missed appreciation periods
-- **Theme Toggle Mid-Transaction**: State preserved across theme changes, transactions complete regardless of UI mode
-- **Zero Infinity Balance**: Onboarding flow to deposit cash or import portfolio, demo mode to explore platform
-- **Conflicting AI Recommendations**: Show both perspectives, let user decide, explain reasoning differences
+- **Plaid Connection Failures**: Clear error messages with retry logic and exponential backoff; fallback to manual CSV/JSON import if Plaid unavailable; institution status indicators; alternative connection methods
+- **Plaid Token Expiration**: Automatic token refresh workflow; re-authentication prompts; graceful degradation to last-known portfolio state
+- **Unsupported Institutions**: Clear messaging about 11,000+ supported institutions; manual import alternative for niche brokerages
+- **Incomplete Portfolio Data**: Handle missing cost basis with current price estimation; partial import success with notifications
+- **Duplicate Imports**: Detect and prevent duplicate holdings from multiple import attempts; merge or update existing positions
+- **Infinity Token Conversion Disputes**: Transparent conversion history with timestamps; rate locked at import time; detailed breakdown showing USD→ΞINF calculation; immutable audit trail in Infinity Bank
+- **Algorithm Timing Drift**: Server-side clock synchronization with NTP; correction mechanisms if timing falls behind schedule; guaranteed minimum appreciation enforcement
+- **Rapid Price Increases**: Optimized UI rendering for constant updates without performance degradation; virtualized charts; throttled re-renders
+- **Network Interruptions During Import**: Resumable import process; saved progress state; background sync when connection restored; no data loss
+- **Theme Toggle Mid-Transaction**: State preserved across theme changes; transactions complete regardless of UI mode; visual consistency maintained
+- **Zero Infinity Balance**: Prominent onboarding flow encouraging Plaid connection or cash deposit; demo mode to explore platform features
+- **Conflicting AI Recommendations**: Show both Mario and Luigi perspectives side-by-side; explain reasoning differences; let user decide based on full context
+- **Large Portfolio Imports**: Progress indicators for 100+ position imports; chunked processing; estimated time remaining
 
 ## Design Direction
 

@@ -5,18 +5,22 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Toaster } from '@/components/ui/sonner'
-import { Upload, TrendUp, Bank, Lightning, Coins, Shield } from '@phosphor-icons/react'
+import { Upload, TrendUp, Bank, Lightning, Coins, Shield, LinkSimple } from '@phosphor-icons/react'
 import { StockCard } from '@/components/StockCard'
 import { PortfolioCard } from '@/components/PortfolioCard'
 import { TradePanel } from '@/components/TradePanel'
 import { MarioCharacter } from '@/components/MarioCharacter'
 import { LuigiCharacter } from '@/components/LuigiCharacter'
 import { PortfolioImportDialog } from '@/components/PortfolioImportDialog'
+import { PlaidLinkComponent } from '@/components/PlaidLinkComponent'
+import { PlaidInfoBanner } from '@/components/PlaidInfoBanner'
 import { InfinityBankStatus } from '@/components/InfinityBankStatus'
 import type { Stock, PortfolioHolding, Portfolio, Transaction } from '@/lib/types'
 import { toast } from 'sonner'
 import { generateInfinityBankId, InfinityBank } from '@/lib/infinityBank'
 import { initializePriceUpdates } from '@/lib/priceAlgorithm'
+import { PlaidService } from '@/lib/plaidService'
+import type { PlaidImportResult } from '@/lib/plaidService'
 
 const INITIAL_STOCKS: Stock[] = [
   {
@@ -120,6 +124,7 @@ function App() {
   const [marioRec, setMarioRec] = useState<any>(null)
   const [luigiRec, setLuigiRec] = useState<any>(null)
   const [importDialogOpen, setImportDialogOpen] = useState(false)
+  const [plaidDialogOpen, setPlaidDialogOpen] = useState(false)
 
   const currentHoldings = holdings || []
   const currentStocks = stocks || []
@@ -438,6 +443,59 @@ Respond with just the advice text, no intro.`
     })
   }
 
+  const handlePlaidImport = async (plaidData: PlaidImportResult) => {
+    const { newHoldings, newStocks, totalInfinityTokens } = PlaidService.transformPlaidToHoldings(
+      plaidData,
+      currentStocks
+    )
+
+    const updatedStocks = [...currentStocks]
+    
+    for (const newStock of newStocks) {
+      updatedStocks.push(newStock)
+    }
+
+    const enrichedHoldings: PortfolioHolding[] = []
+
+    for (const holding of newHoldings) {
+      const infinityBankId = generateInfinityBankId()
+      
+      const enrichedHolding: PortfolioHolding = {
+        ...holding,
+        id: Date.now().toString() + Math.random(),
+        infinityBankId,
+        securityLevel: 'plateau',
+      }
+
+      await InfinityBank.store('current-user', 'holding', enrichedHolding, 'plateau')
+      enrichedHoldings.push(enrichedHolding)
+
+      const transaction: Transaction = {
+        id: Date.now().toString() + Math.random(),
+        type: 'import',
+        stockId: holding.stockId,
+        symbol: holding.symbol,
+        quantity: holding.quantity,
+        price: holding.currentPrice,
+        total: holding.totalValue,
+        infinityTokens: PlaidService.convertToInfinityTokens(holding.totalValue),
+        timestamp: Date.now(),
+        infinityBankId,
+      }
+
+      setTransactions((current) => [transaction, ...(current || [])])
+      await InfinityBank.store('current-user', 'transaction', transaction, 'plateau')
+    }
+
+    setStocks(updatedStocks)
+    setHoldings((current) => [...(current || []), ...enrichedHoldings])
+    setInfinityTokenBalance((current) => (current || 0) + totalInfinityTokens)
+
+    toast.success(`Plaid Import Complete!`, {
+      description: `${enrichedHoldings.length} holdings imported. ${totalInfinityTokens.toLocaleString()} ΞINF tokens added.`,
+    })
+  }
+
   const toggleTheme = () => {
     setTheme((current) => current === 'professional' ? 'retro' : 'professional')
   }
@@ -468,9 +526,14 @@ Respond with just the advice text, no intro.`
                 />
               </div>
               
+              <Button variant="outline" className="gap-2" onClick={() => setPlaidDialogOpen(true)}>
+                <LinkSimple size={20} weight="bold" />
+                <span className="hidden sm:inline">Connect Brokerage</span>
+              </Button>
+              
               <Button variant="outline" className="gap-2" onClick={() => setImportDialogOpen(true)}>
                 <Upload size={20} weight="bold" />
-                <span className="hidden sm:inline">Import Portfolio</span>
+                <span className="hidden sm:inline">Manual Import</span>
               </Button>
             </div>
           </div>
@@ -478,7 +541,9 @@ Respond with just the advice text, no intro.`
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
-        <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 backdrop-blur rounded-xl border border-border/50 p-6 md:p-8 mb-8 shadow-lg">
+        <PlaidInfoBanner />
+        
+        <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 backdrop-blur rounded-xl border border-border/50 p-6 md:p-8 mb-8 mt-6 shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="bg-card/60 backdrop-blur rounded-lg p-4 border border-border/30">
               <div className="flex items-center gap-2 mb-2">
@@ -596,12 +661,16 @@ Respond with just the advice text, no intro.`
                   <div className="text-muted-foreground mb-6 max-w-md mx-auto">
                     Start by importing your portfolio or buying tokens from the market!
                   </div>
-                  <div className="flex gap-3 justify-center">
+                  <div className="flex gap-3 justify-center flex-wrap">
+                    <Button onClick={() => setPlaidDialogOpen(true)} variant="default" className="gap-2">
+                      <LinkSimple size={20} weight="bold" />
+                      Connect Brokerage
+                    </Button>
                     <Button onClick={() => setImportDialogOpen(true)} variant="outline" className="gap-2">
                       <Upload size={20} weight="bold" />
-                      Import Portfolio
+                      Manual Import
                     </Button>
-                    <Button onClick={() => document.querySelector<HTMLButtonElement>('[value="market"]')?.click()}>
+                    <Button onClick={() => document.querySelector<HTMLButtonElement>('[value="market"]')?.click()} variant="outline">
                       Browse Market
                     </Button>
                   </div>
@@ -646,6 +715,13 @@ Respond with just the advice text, no intro.`
         isOpen={importDialogOpen}
         onClose={() => setImportDialogOpen(false)}
         onImport={handleImportPortfolio}
+      />
+
+      <PlaidLinkComponent
+        isOpen={plaidDialogOpen}
+        onClose={() => setPlaidDialogOpen(false)}
+        onSuccess={handlePlaidImport}
+        existingStocks={currentStocks}
       />
 
       <Toaster position="top-center" />
