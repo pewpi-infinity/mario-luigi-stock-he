@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Toaster } from '@/components/ui/sonner'
-import { Upload, TrendUp, Bank, Lightning, Coins, Shield, LinkSimple } from '@phosphor-icons/react'
+import { Upload, TrendUp, Bank, Lightning, Coins, Shield, LinkSimple, Sparkle } from '@phosphor-icons/react'
 import { StockCard } from '@/components/StockCard'
 import { PortfolioCard } from '@/components/PortfolioCard'
 import { TradePanel } from '@/components/TradePanel'
@@ -15,6 +15,7 @@ import { PortfolioImportDialog } from '@/components/PortfolioImportDialog'
 import { PlaidLinkComponent } from '@/components/PlaidLinkComponent'
 import { PlaidInfoBanner } from '@/components/PlaidInfoBanner'
 import { InfinityBankStatus } from '@/components/InfinityBankStatus'
+import { AIStockSearch } from '@/components/AIStockSearch'
 import type { Stock, PortfolioHolding, Portfolio, Transaction } from '@/lib/types'
 import { toast } from 'sonner'
 import { generateInfinityBankId, InfinityBank } from '@/lib/infinityBank'
@@ -107,6 +108,90 @@ const INITIAL_STOCKS: Stock[] = [
     lastPriceUpdate: Date.now(),
     priceHistory: [],
   },
+  {
+    id: '7',
+    symbol: 'META',
+    name: 'Meta Platforms, Inc.',
+    currentPrice: 512.75,
+    basePrice: 512.75,
+    priceChange: 0,
+    priceChangePercent: 0,
+    totalSupply: 1000,
+    availableTokens: 234,
+    category: 'Tech',
+    lastPriceUpdate: Date.now(),
+    priceHistory: [],
+  },
+  {
+    id: '8',
+    symbol: 'JPM',
+    name: 'JPMorgan Chase & Co.',
+    currentPrice: 198.45,
+    basePrice: 198.45,
+    priceChange: 0,
+    priceChangePercent: 0,
+    totalSupply: 1000,
+    availableTokens: 678,
+    category: 'Finance',
+    lastPriceUpdate: Date.now(),
+    priceHistory: [],
+  },
+  {
+    id: '9',
+    symbol: 'JNJ',
+    name: 'Johnson & Johnson',
+    currentPrice: 156.30,
+    basePrice: 156.30,
+    priceChange: 0,
+    priceChangePercent: 0,
+    totalSupply: 1000,
+    availableTokens: 812,
+    category: 'Healthcare',
+    lastPriceUpdate: Date.now(),
+    priceHistory: [],
+  },
+  {
+    id: '10',
+    symbol: 'V',
+    name: 'Visa Inc.',
+    currentPrice: 289.60,
+    basePrice: 289.60,
+    priceChange: 0,
+    priceChangePercent: 0,
+    totalSupply: 1000,
+    availableTokens: 445,
+    category: 'Finance',
+    lastPriceUpdate: Date.now(),
+    priceHistory: [],
+  },
+  {
+    id: '11',
+    symbol: 'UNH',
+    name: 'UnitedHealth Group',
+    currentPrice: 524.80,
+    basePrice: 524.80,
+    priceChange: 0,
+    priceChangePercent: 0,
+    totalSupply: 1000,
+    availableTokens: 589,
+    category: 'Healthcare',
+    lastPriceUpdate: Date.now(),
+    priceHistory: [],
+  },
+  {
+    id: '12',
+    symbol: 'WMT',
+    name: 'Walmart Inc.',
+    currentPrice: 167.90,
+    basePrice: 167.90,
+    priceChange: 0,
+    priceChangePercent: 0,
+    totalSupply: 1000,
+    availableTokens: 723,
+    category: 'Retail',
+    lastPriceUpdate: Date.now(),
+    priceHistory: [],
+  },
 ]
 
 function App() {
@@ -125,6 +210,7 @@ function App() {
   const [luigiRec, setLuigiRec] = useState<any>(null)
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [plaidDialogOpen, setPlaidDialogOpen] = useState(false)
+  const [aiSearchOpen, setAiSearchOpen] = useState(false)
 
   const currentHoldings = holdings || []
   const currentStocks = stocks || []
@@ -515,6 +601,15 @@ Respond with just the advice text, no intro.`
             </div>
             
             <div className="flex items-center gap-3 flex-wrap">
+              <Button 
+                variant="default" 
+                className="gap-2 font-semibold bg-gradient-to-r from-primary via-accent to-secondary text-primary-foreground hover:opacity-90 transition-opacity" 
+                onClick={() => setAiSearchOpen(true)}
+              >
+                <Sparkle size={20} weight="duotone" />
+                <span className="hidden sm:inline">AI Stock Search</span>
+              </Button>
+              
               <div className="flex items-center gap-2 bg-muted/50 rounded-lg px-3 py-2">
                 <Label htmlFor="theme-toggle" className="text-xs font-medium cursor-pointer">
                   {isRetroTheme ? '🎮' : '💼'}
@@ -722,6 +817,13 @@ Respond with just the advice text, no intro.`
         onClose={() => setPlaidDialogOpen(false)}
         onSuccess={handlePlaidImport}
         existingStocks={currentStocks}
+      />
+
+      <AIStockSearch
+        isOpen={aiSearchOpen}
+        onClose={() => setAiSearchOpen(false)}
+        stocks={currentStocks}
+        onSelectStock={handleStockClick}
       />
 
       <Toaster position="top-center" />

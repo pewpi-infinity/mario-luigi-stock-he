@@ -31,7 +31,15 @@ A professional tokenized stock trading platform with **real Plaid integration** 
 ### 🤖 AI-Powered Trading Insights
 - **Mario AI**: Identifies underperforming stocks to sell
 - **Luigi AI**: Recommends strong holdings to keep
-- Powered by GPT-4o for intelligent analysis
+- **AI Stock Search**: Advanced multi-dimensional analysis using Infinity-minded algorithms
+  - Momentum scoring (25%) - Identifies stocks with strong upward trajectory
+  - Value assessment (15%) - Finds fairly priced opportunities
+  - Scarcity analysis (20%) - Measures token availability and demand
+  - Appreciation tracking (20%) - Evaluates historical growth
+  - Infinity Potential (20%) - Proprietary metric for future growth
+  - Real-time AI reasoning for each recommendation
+  - Confidence levels and recommendation tiers (Strong Buy, Buy, Hold, Sell)
+- Powered by GPT-4o-mini for intelligent, cost-effective analysis
 - Fun retro theme or professional mode
 
 ### 🎨 Dual Theme Support
@@ -82,6 +90,7 @@ The Plaid integration supports **11,000+ financial institutions** including:
 
 ## 📖 Documentation
 
+- **[AI_SEARCH_GUIDE.md](./AI_SEARCH_GUIDE.md)** - Detailed guide to the AI Stock Search algorithms
 - **[PLAID_SETUP.md](./PLAID_SETUP.md)** - Complete Plaid production setup guide
 - **[PRD.md](./PRD.md)** - Product requirements and design decisions
 - **[SECURITY.md](./SECURITY.md)** - Security practices and compliance
@@ -132,6 +141,11 @@ The Plaid integration supports **11,000+ financial institutions** including:
 ### AI Recommendations
 - Get AI-powered sell insights (Mario)
 - Get AI-powered hold insights (Luigi)
+- **AI Stock Search** - Comprehensive analysis of all stocks
+  - Multi-dimensional scoring across 5 key metrics
+  - Top picks and stocks to avoid
+  - Market sentiment analysis
+  - Portfolio strategy recommendations
 - LLM analysis of portfolio performance
 - Confidence scores and reasoning
 

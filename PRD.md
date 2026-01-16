@@ -68,6 +68,13 @@ This requires real Plaid OAuth integration for portfolio imports, Infinity Token
 - Progression: Request analysis → AI evaluates holdings → Recommendation displayed → User can proceed or reconsider
 - Success criteria: Actionable hold advice that prevents premature exits
 
+**AI Stock Search - Infinity-Minded Analysis**
+- Functionality: Advanced multi-dimensional analysis of all available stocks using Infinity-minded algorithms; scores stocks on momentum (25%), value (15%), scarcity (20%), appreciation (20%), and Infinity potential (20%); provides AI-generated reasoning for each recommendation; displays top picks and stocks to avoid with confidence levels
+- Purpose: Help users discover the best investment opportunities through sophisticated algorithmic analysis that goes beyond simple price movements; identify which stocks are best positioned within the guaranteed-appreciation ecosystem
+- Trigger: Prominent "AI Stock Search" button in header with gradient styling
+- Progression: Click AI Stock Search → Modal opens with feature overview → Click "Run AI Analysis" → System analyzes all stocks (shows progress) → Results display with market sentiment, portfolio strategy, and ranked stocks → Toggle between "Top Picks" and "Avoid" tabs → Click any stock to view detailed score breakdown → Click stock card to open trade panel → Can refresh analysis or close modal
+- Success criteria: Analysis completes in <10 seconds for 20+ stocks, AI reasoning is relevant and actionable, scores accurately reflect stock characteristics, recommendations lead to profitable trades, users can easily compare multiple opportunities
+
 ## Edge Case Handling
 
 - **Plaid Connection Failures**: Clear error messages with retry logic and exponential backoff; fallback to manual CSV/JSON import if Plaid unavailable; institution status indicators; alternative connection methods
