@@ -20,11 +20,11 @@ This requires real Plaid OAuth integration for portfolio imports, Infinity Token
 - Success criteria: Successful OAuth connection to real brokerages, accurate real-time position import, transparent Infinity Token conversion display with USD value comparison, secure encrypted storage in Infinity Bank, transaction audit trail, progress indicators during multi-step process
 
 **Dynamic Price Appreciation Algorithm**
-- Functionality: Real-time price increases of 1-30 cents every 3 seconds based on hourly rotation schedule (Hour 1: +3¢/3s, Hour 2: +6¢/3s, Hour 3: +2¢/3s, etc.)
-- Purpose: Guaranteed appreciation model ensures all holdings increase in value, creating positive investor experience and differentiating from volatile traditional markets
-- Trigger: Continuous background process running every 3 seconds for all stocks
-- Progression: Stock starts at market price (e.g., $231.00 at 3:31) → Algorithm adds cents every 3 seconds → Reaches $231.60+ by 3:32 → Hourly rate changes → Charts reflect guaranteed upward trajectory
-- Success criteria: Precise timing (60¢ minimum increase per minute), smooth chart animation, hourly rate rotation, no price decreases
+- Functionality: Guaranteed price increases every 3 seconds; never decreases. Hourly rotation schedule determines rate: 1-15 cents per 3-second interval. Hour 0: +1¢, Hour 1: +3¢, Hour 2: +6¢, Hour 3: +2¢, continuing through 24-hour cycle. Occasional 30-cent bonus (~once monthly). System started at 3:31 AM and runs continuously.
+- Purpose: Revolutionary guaranteed appreciation model ensures all holdings always increase in value, creating positive investor experience and complete differentiation from volatile traditional markets. Prices can only go up.
+- Trigger: Continuous background process running precisely every 3 seconds for all stocks
+- Progression: Stock starts at market price (e.g., $231.00 at 3:31) → Algorithm adds current hour's cents every 3 seconds → Reaches $231.60+ by 3:32 (20 updates × 3¢ = 60¢ minimum) → Hour changes → New rate applied → Charts reflect guaranteed upward trajectory → No drops ever
+- Success criteria: Precise 3-second timing, minimum 60¢ increase per minute during 3¢/3s hours, smooth chart animation, hourly rate rotation at top of each hour, zero price decreases, visible rate indicator on stock cards
 
 **Infinity Bank Storage & Security**
 - Functionality: Holdings secured in Infinity Bank using Infinity Plateau and Plus program architecture from mongoose.os repository for maximum protection
@@ -34,13 +34,18 @@ This requires real Plaid OAuth integration for portfolio imports, Infinity Token
 - Success criteria: 100% data persistence, zero loss events, instant retrieval, audit trail
 
 **Infinity Token Conversion Engine**
-- Functionality: Convert imported cash and stock holdings to Infinity Tokens; display conversion rates and total Infinity Token balance
-- Purpose: Unified ecosystem where all value is denominated in Infinity Tokens, allowing platform to liquidate actual dollars for tangible assets (gold/silver/land)
-- Trigger: Portfolio import or manual cash deposit
-- Progression: Import $10,000 in stocks/cash → System calculates Infinity Token conversion → User sees "10,000 ΞINF tokens" → Platform owner receives actual dollars → User trades within Infinity ecosystem
-- Success criteria: Clear conversion display, accurate token balance, transparent rate information
+- Functionality: Convert imported cash and stock holdings to Infinity Tokens at 1:1 USD ratio; display conversion rates and total Infinity Token balance; PayPal integration for direct token purchases using merchant account marvaseater@gmail.com
+- Purpose: Unified ecosystem where all value is denominated in Infinity Tokens, allowing platform to liquidate actual dollars for tangible assets (gold/silver/land). Users buy tokens via PayPal to trade tokenized stocks.
+- Trigger: Portfolio import, manual cash deposit, or PayPal token purchase
+- Progression: Click "Buy Tokens" → PayPal modal opens → Enter USD amount → Shows 1:1 conversion → Complete PayPal payment → Infinity Tokens added to balance → Can now trade stocks
+- Success criteria: Clear conversion display, accurate token balance, transparent 1:1 rate information, secure PayPal integration, instant token delivery
 
-**Professional Trading Interface**
+**Stock Source & Supply Management**
+- Functionality: All tokenized stocks originate from acquired shares (conceptually from high-value portfolios like Bill Gates). Platform only sells what has been acquired from users transferring their real shares. Each stock tracks total supply, available tokens, and source portfolio.
+- Purpose: Creates legitimate backing for tokenized stocks - platform accumulates real shares from imports and sells tokenized versions with guaranteed appreciation. Real shares are liquidated for tangible assets.
+- Trigger: User imports portfolio via Plaid or manual upload
+- Progression: User connects brokerage → Platform receives actual shares → Shares converted to Infinity ecosystem → User gets Infinity Tokens → Platform gains real shares to back token supply → Tokens made available for other users to purchase
+- Success criteria: Accurate supply tracking, transparent source attribution, supply limits enforced, audit trail of share acquisitions
 - Functionality: Robinhood-comparable UI with advanced charting, order types, portfolio analytics, and real-time data
 - Purpose: Professional-grade platform that competes directly with established brokerages in functionality and polish
 - Trigger: Primary app interface

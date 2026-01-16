@@ -11,16 +11,21 @@ A professional tokenized stock trading platform with **real Plaid integration** 
 - **Instant Infinity Token conversion** - All assets converted to ΞINF tokens upon import
 
 ### 💎 Infinity Token Ecosystem
+- **PayPal Token Purchases** - Buy Infinity Tokens directly via PayPal (marvaseater@gmail.com merchant)
 - All imported cash and stocks converted to Infinity Tokens (1:1 USD rate)
 - Platform owner liquidates actual dollars for gold, silver, and land investments
 - Users trade within the Infinity Token ecosystem
 - Transparent conversion rates and audit trails
+- Secure PayPal integration with 256-bit SSL encryption
 
 ### 📈 Guaranteed Price Appreciation
-- Dynamic algorithm increases all stock prices by 1-30 cents every 3 seconds
-- Hourly rotation schedule (Hour 1: +3¢/3s, Hour 2: +6¢/3s, etc.)
-- Guaranteed 60¢+ appreciation per minute
-- No price decreases—only growth
+- **Revolutionary algorithm**: Prices ONLY increase, never drop
+- **Continuous growth**: +1 to +15 cents every 3 seconds based on hourly schedule
+- **Hour 23 peak**: +15¢ per 3 seconds (up to $180/hour)
+- **Occasional bonuses**: +30¢ jumps approximately once monthly
+- **Minimum guarantee**: 60¢+ appreciation per minute during standard rates
+- **Started January 1, 2024 at 3:31 AM** and runs continuously forever
+- See [PRICE_ALGORITHM.md](./PRICE_ALGORITHM.md) for complete details and schedule
 
 ### 🏛️ Infinity Bank Storage
 - All holdings secured with Infinity Plateau and Plus program protection
@@ -90,6 +95,7 @@ The Plaid integration supports **11,000+ financial institutions** including:
 
 ## 📖 Documentation
 
+- **[PRICE_ALGORITHM.md](./PRICE_ALGORITHM.md)** - Complete price growth system explained
 - **[AI_SEARCH_GUIDE.md](./AI_SEARCH_GUIDE.md)** - Detailed guide to the AI Stock Search algorithms
 - **[PLAID_SETUP.md](./PLAID_SETUP.md)** - Complete Plaid production setup guide
 - **[PRD.md](./PRD.md)** - Product requirements and design decisions
@@ -132,11 +138,13 @@ The Plaid integration supports **11,000+ financial institutions** including:
 7. Secured in Infinity Bank
 
 ### Trading Features
-- Buy/sell tokenized stocks
-- Real-time price updates (every 3 seconds)
+- **Buy Infinity Tokens** via PayPal integration
+- Buy/sell tokenized stocks with tokens
+- Real-time price updates (every 3 seconds, always increasing)
 - Portfolio analytics and tracking
-- Gain/loss calculations
-- Transaction history
+- Gain/loss calculations (always positive over time)
+- Transaction history with Infinity Bank storage
+- Stock source tracking (shares acquired from Bill Gates portfolio concept)
 
 ### AI Recommendations
 - Get AI-powered sell insights (Mario)

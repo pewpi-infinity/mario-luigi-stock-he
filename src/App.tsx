@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Toaster } from '@/components/ui/sonner'
-import { Upload, TrendUp, Bank, Lightning, Coins, Shield, LinkSimple, Sparkle } from '@phosphor-icons/react'
+import { Upload, TrendUp, Bank, Lightning, Coins, Shield, LinkSimple, Sparkle, CreditCard } from '@phosphor-icons/react'
 import { StockCard } from '@/components/StockCard'
 import { PortfolioCard } from '@/components/PortfolioCard'
 import { TradePanel } from '@/components/TradePanel'
@@ -16,11 +16,14 @@ import { PlaidLinkComponent } from '@/components/PlaidLinkComponent'
 import { PlaidInfoBanner } from '@/components/PlaidInfoBanner'
 import { InfinityBankStatus } from '@/components/InfinityBankStatus'
 import { AIStockSearch } from '@/components/AIStockSearch'
+import { PayPalTokenPurchase } from '@/components/PayPalTokenPurchase'
+import { PriceAlgorithmIndicator } from '@/components/PriceAlgorithmIndicator'
 import type { Stock, PortfolioHolding, Portfolio, Transaction } from '@/lib/types'
 import { toast } from 'sonner'
 import { generateInfinityBankId, InfinityBank } from '@/lib/infinityBank'
 import { initializePriceUpdates } from '@/lib/priceAlgorithm'
 import { PlaidService } from '@/lib/plaidService'
+import { StockSourceService } from '@/lib/stockSource'
 import type { PlaidImportResult } from '@/lib/plaidService'
 
 const INITIAL_STOCKS: Stock[] = [
@@ -211,6 +214,7 @@ function App() {
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [plaidDialogOpen, setPlaidDialogOpen] = useState(false)
   const [aiSearchOpen, setAiSearchOpen] = useState(false)
+  const [paypalDialogOpen, setPaypalDialogOpen] = useState(false)
 
   const currentHoldings = holdings || []
   const currentStocks = stocks || []
@@ -226,6 +230,10 @@ function App() {
   useEffect(() => {
     const cleanup = initializePriceUpdates(currentStocks, setStocks)
     return cleanup
+  }, [])
+
+  useEffect(() => {
+    StockSourceService.initializeAllStocks(currentStocks)
   }, [])
 
   const portfolio: Portfolio = {
@@ -586,6 +594,27 @@ Respond with just the advice text, no intro.`
     setTheme((current) => current === 'professional' ? 'retro' : 'professional')
   }
 
+  const handlePayPalPurchase = async (tokens: number, usdAmount: number) => {
+    setInfinityTokenBalance((current) => (current || 0) + tokens)
+    setCashBalance((current) => (current || 0) + usdAmount)
+
+    const transaction: Transaction = {
+      id: Date.now().toString(),
+      type: 'convert',
+      stockId: 'infinity-token',
+      symbol: 'ΞINF',
+      quantity: tokens,
+      price: 1,
+      total: usdAmount,
+      infinityTokens: tokens,
+      timestamp: Date.now(),
+      infinityBankId: generateInfinityBankId(),
+    }
+
+    setTransactions((current) => [transaction, ...(current || [])])
+    await InfinityBank.store('current-user', 'transaction', transaction, 'plateau')
+  }
+
   return (
     <div className="min-h-screen pb-20">
       <header className="border-b backdrop-blur-xl bg-card/80 sticky top-0 z-40 shadow-sm">
@@ -601,6 +630,15 @@ Respond with just the advice text, no intro.`
             </div>
             
             <div className="flex items-center gap-3 flex-wrap">
+              <Button 
+                variant="default" 
+                className="gap-2 font-semibold bg-gradient-to-r from-[#0070ba] to-[#003087] text-white hover:opacity-90 transition-opacity" 
+                onClick={() => setPaypalDialogOpen(true)}
+              >
+                <CreditCard size={20} weight="duotone" />
+                <span className="hidden sm:inline">Buy Tokens</span>
+              </Button>
+              
               <Button 
                 variant="default" 
                 className="gap-2 font-semibold bg-gradient-to-r from-primary via-accent to-secondary text-primary-foreground hover:opacity-90 transition-opacity" 
@@ -638,7 +676,11 @@ Respond with just the advice text, no intro.`
       <main className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
         <PlaidInfoBanner />
         
-        <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 backdrop-blur rounded-xl border border-border/50 p-6 md:p-8 mb-8 mt-6 shadow-lg">
+        <div className="mt-6 mb-8">
+          <PriceAlgorithmIndicator />
+        </div>
+        
+        <div className="bg-gradient-to-br from-primary/10 via-accent/5 to-secondary/10 backdrop-blur rounded-xl border border-border/50 p-6 md:p-8 mb-8 shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="bg-card/60 backdrop-blur rounded-lg p-4 border border-border/30">
               <div className="flex items-center gap-2 mb-2">
@@ -824,6 +866,12 @@ Respond with just the advice text, no intro.`
         onClose={() => setAiSearchOpen(false)}
         stocks={currentStocks}
         onSelectStock={handleStockClick}
+      />
+
+      <PayPalTokenPurchase
+        isOpen={paypalDialogOpen}
+        onClose={() => setPaypalDialogOpen(false)}
+        onPurchaseComplete={handlePayPalPurchase}
       />
 
       <Toaster position="top-center" />

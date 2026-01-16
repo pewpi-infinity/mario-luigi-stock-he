@@ -1,10 +1,13 @@
 import type { PriceAlgorithmConfig } from './types'
 
-const HOURLY_INCREASE_SCHEDULE = [3, 6, 2, 4, 8, 5, 3, 7, 4, 6, 5, 9, 3, 6, 4, 8, 5, 3, 6, 4, 7, 5, 3, 6]
+const HOURLY_INCREASE_SCHEDULE = [1, 3, 6, 2, 4, 8, 5, 3, 7, 4, 6, 5, 9, 3, 6, 4, 8, 5, 3, 6, 4, 7, 5, 15]
+
+const ALGORITHM_START_TIME = new Date('2024-01-01T03:31:00').getTime()
 
 export class PriceAlgorithm {
   private static getCurrentHourRate(): number {
-    const hour = new Date().getHours()
+    const now = new Date()
+    const hour = now.getHours()
     return HOURLY_INCREASE_SCHEDULE[hour]
   }
 
@@ -14,18 +17,21 @@ export class PriceAlgorithm {
   }
 
   private static getOccasionalBonus(): number {
-    return Math.random() < 0.15 ? 30 : 0
+    const isMonthlyBonus = Math.random() < (1 / (30 * 24 * 60 * 20))
+    return isMonthlyBonus ? 30 : 0
   }
 
   static calculatePriceIncrease(): number {
     const baseRate = this.getCurrentHourRate()
     const bonus = this.getOccasionalBonus()
-    return (baseRate + bonus) / 100
+    const totalCents = baseRate + bonus
+    return totalCents / 100
   }
 
   static updateStockPrice(currentPrice: number): number {
     const increase = this.calculatePriceIncrease()
-    return parseFloat((currentPrice + increase).toFixed(2))
+    const newPrice = currentPrice + increase
+    return parseFloat(newPrice.toFixed(2))
   }
 
   static getAlgorithmConfig(): PriceAlgorithmConfig {
@@ -44,15 +50,38 @@ export class PriceAlgorithm {
     const updates = Math.floor(seconds / 3)
     const currentRate = this.getCurrentHourRate()
     const baseIncrease = (currentRate / 100) * updates
-    const bonusCount = Math.floor(updates * 0.15)
-    const bonusIncrease = (30 / 100) * bonusCount
-    return baseIncrease + bonusIncrease
+    return baseIncrease
   }
 
   static verifyMinimumIncrease(startPrice: number, endPrice: number, seconds: number): boolean {
-    const expectedMinimum = (seconds / 60) * 0.60
+    const updates = Math.floor(seconds / 3)
+    const currentRate = this.getCurrentHourRate()
+    const expectedMinimum = (currentRate / 100) * updates
     const actualIncrease = endPrice - startPrice
     return actualIncrease >= expectedMinimum
+  }
+
+  static calculateTotalAppreciation(basePrice: number, startTime: number): number {
+    const now = Date.now()
+    const elapsedSeconds = Math.floor((now - startTime) / 1000)
+    const updates = Math.floor(elapsedSeconds / 3)
+    
+    const hoursElapsed = Math.floor(elapsedSeconds / 3600)
+    let totalIncrease = 0
+    
+    for (let i = 0; i < hoursElapsed; i++) {
+      const hour = (new Date(startTime + i * 3600000).getHours()) % 24
+      const rate = HOURLY_INCREASE_SCHEDULE[hour]
+      const updatesInHour = 1200
+      totalIncrease += (rate / 100) * updatesInHour
+    }
+    
+    const remainingSeconds = elapsedSeconds % 3600
+    const remainingUpdates = Math.floor(remainingSeconds / 3)
+    const currentRate = this.getCurrentHourRate()
+    totalIncrease += (currentRate / 100) * remainingUpdates
+    
+    return parseFloat((basePrice + totalIncrease).toFixed(2))
   }
 }
 
