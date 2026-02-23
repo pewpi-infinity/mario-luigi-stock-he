@@ -126,12 +126,17 @@ function App() {
   const isRetroTheme = theme === 'retro'
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    document.body.setAttribute('data-theme', theme)
+    if (theme) {
+      document.documentElement.setAttribute('data-theme', theme)
+      document.body.setAttribute('data-theme', theme)
+    }
   }, [theme])
 
   useEffect(() => {
-    const cleanup = initializePriceUpdates(currentStocks, setStocks)
+    const wrappedSetStocks = (updater: (current: Stock[]) => Stock[]) => {
+      setStocks((oldValue) => updater(oldValue || INITIAL_STOCKS))
+    }
+    const cleanup = initializePriceUpdates(currentStocks, wrappedSetStocks)
     return cleanup
   }, [])
 
@@ -507,7 +512,7 @@ Respond with just the advice text, no intro.`
                 <div className="text-sm font-medium text-muted-foreground">Infinity Tokens</div>
               </div>
               <div className={`text-3xl font-bold tabular-nums text-accent ${isRetroTheme ? 'font-body' : 'font-mono'}`}>
-                {infinityTokenBalance.toLocaleString()} ΞINF
+                {(infinityTokenBalance || 0).toLocaleString()} ΞINF
               </div>
             </div>
           </div>
@@ -574,7 +579,7 @@ Respond with just the advice text, no intro.`
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {currentStocks.map((stock) => (
-                  <StockCard key={stock.id} stock={stock} onClick={() => handleStockClick(stock)} theme={theme} />
+                  <StockCard key={stock.id} stock={stock} onClick={() => handleStockClick(stock)} />
                 ))}
               </div>
             </div>
@@ -607,7 +612,7 @@ Respond with just the advice text, no intro.`
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {currentHoldings.map((holding) => (
-                    <PortfolioCard key={holding.id} holding={holding} onClick={() => handlePortfolioClick(holding)} theme={theme} />
+                    <PortfolioCard key={holding.id} holding={holding} onClick={() => handlePortfolioClick(holding)} />
                   ))}
                 </div>
               )}
@@ -622,7 +627,6 @@ Respond with just the advice text, no intro.`
         stock={selectedStock}
         holding={selectedHolding}
         onTrade={handleTrade}
-        theme={theme}
       />
 
       {isRetroTheme && (

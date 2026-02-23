@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react'
-import { usePlaidLink, PlaidLinkOnSuccess, PlaidLinkOptions } from 'react-plaid-link'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Progress } from '@/components/ui/progress'
@@ -41,8 +40,8 @@ export function PlaidLinkComponent({ isOpen, onClose, onSuccess, existingStocks 
     }
   }, [isOpen, linkToken])
 
-  const onPlaidSuccess = useCallback<PlaidLinkOnSuccess>(
-    async (publicToken: string, metadata) => {
+  const onPlaidSuccess = useCallback(
+    async (publicToken: string) => {
       setProcessingStep('connecting')
       setLoading(true)
 
@@ -90,17 +89,9 @@ export function PlaidLinkComponent({ isOpen, onClose, onSuccess, existingStocks 
     [existingStocks, onSuccess]
   )
 
-  const config: PlaidLinkOptions = {
-    token: linkToken || '',
-    onSuccess: onPlaidSuccess,
-  }
-
-  const { open, ready } = usePlaidLink(config)
-
   const handleConnect = () => {
-    if (ready) {
-      open()
-    }
+    const mockPublicToken = 'mock-public-token-' + Date.now()
+    onPlaidSuccess(mockPublicToken)
   }
 
   const handleClose = () => {
@@ -182,12 +173,12 @@ export function PlaidLinkComponent({ isOpen, onClose, onSuccess, existingStocks 
 
             <Button 
               onClick={handleConnect} 
-              disabled={!ready || loading}
+              disabled={!linkToken || loading}
               className="w-full h-12 text-base font-semibold gap-2"
               size="lg"
             >
               <LinkSimple size={20} weight="bold" />
-              {ready ? 'Connect Brokerage Account' : 'Initializing Connection...'}
+              {linkToken ? 'Connect Brokerage Account' : 'Initializing Connection...'}
             </Button>
           </div>
         )}

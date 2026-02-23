@@ -228,7 +228,10 @@ function App() {
   }, [theme])
 
   useEffect(() => {
-    const cleanup = initializePriceUpdates(currentStocks, setStocks)
+    const wrappedSetStocks = (updater: (current: Stock[]) => Stock[]) => {
+      setStocks((oldValue) => updater(oldValue || INITIAL_STOCKS))
+    }
+    const cleanup = initializePriceUpdates(currentStocks, wrappedSetStocks)
     return cleanup
   }, [])
 
